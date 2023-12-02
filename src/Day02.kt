@@ -84,32 +84,25 @@ fun main() {
 
             val cubeSet = getCubesFromGameString(gameString)
             
+            val maxColorMap = mutableMapOf<Color, Int>(
+                Color.GREEN to 0,
+                Color.RED to 0,
+                Color.BLUE to 0
+            )
+
             var maxGreen = 0
             var maxBlue = 0
             var maxRed = 0
 
             cubeSet.forEach { it ->
                 it.forEach { cubeSubset ->
-                    when(cubeSubset.color) {
-                        Color.BLUE -> {
-                            if(cubeSubset.number > maxBlue) {
-                                maxBlue = cubeSubset.number
-                            }
-                        }
-                        Color.RED -> {
-                            if(cubeSubset.number > maxRed) {
-                                maxRed = cubeSubset.number
-                            }
-                        }
-                        Color.GREEN -> {
-                            if(cubeSubset.number > maxGreen) {
-                                maxGreen = cubeSubset.number
-                            }
-                        }
+                    val currentValue = maxColorMap[cubeSubset.color] ?: 0
+                    if(cubeSubset.number > currentValue) {
+                        maxColorMap[cubeSubset.color] = cubeSubset.number
                     }
                 }
             }
-            cubePowerList.add(maxGreen * maxBlue * maxRed)
+            cubePowerList.add(maxColorMap.values.reduce {acc, next -> acc * next})
         }
         return cubePowerList.sum()
     }
