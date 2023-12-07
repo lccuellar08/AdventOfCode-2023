@@ -1,6 +1,5 @@
 data class Card(val value: Int, val playWithJoker: Boolean = false): Comparable<Card> {
     constructor(cardString: String, playWithJoker: Boolean = false): this(getValueFromString(cardString, playWithJoker)){}
-
     
     companion object CardString{
         fun getValueFromString(cardString: String, playWithJoker: Boolean = false): Int {
@@ -76,7 +75,7 @@ fun main() {
             cards.forEach {card ->mapOfCards[card] = mapOfCards.getOrDefault(card, 0) + 1}
             
             // 5 Of A Kind
-            if(mapOfCards.values.filter { it -> it == 5 }.isNotEmpty()) {
+            if(mapOfCards.values.filter { it == 5 }.isNotEmpty()) {
                 return HandType.FIVE_OF_A_KIND
             }
             
@@ -125,12 +124,8 @@ fun main() {
                 // Same hand, go card by card
                 if(this.cards.size == other.cards.size) {
                     for(index in 0 until this.cards.size) {
-                        if(this.cards[index].value > other.cards[index].value) {
-                            return 1
-                        } else if(this.cards[index].value < other.cards[index].value) {
-                            return -1
-                        } else {
-                            // Do nothing
+                        if(this.cards[index].compareTo(other.cards[index]) != 0) {
+                            return this.cards[index].compareTo(other.cards[index])
                         }
                     }
                     return this.bid.compareTo(other.bid)
@@ -160,38 +155,24 @@ fun main() {
     
     fun part1(input: List<String>): Int {
         val hands = input.map{getHand(it)}
-        
         val sortedHands = hands.sorted()
-        
-        
 //        sortedHands.forEachIndexed {index, it ->
 //            println("${index + 1}: Hand bid: ${it.bid}: ${it.hand_type} for hand ${it.cards.map{it.value}.joinToString(",")}")
 //        }
-        
         return sortedHands.mapIndexed{index, hand -> return@mapIndexed (index + 1) * hand.bid}.sum()
     }
 
     fun part2(input: List<String>): Int {
         val hands = input.map{getHand(it, true)}
-
         val sortedHands = hands.sorted()
-
-
 //        sortedHands.forEachIndexed {index, it ->
 //            println("${index + 1}: Hand bid: ${it.bid}: ${it.hand_type} for hand ${it.cards.map{it.value}.joinToString(",")}")
 //        }
-
         return sortedHands.mapIndexed{index, hand -> return@mapIndexed (index + 1) * hand.bid}.sum()
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day07_test")
-    
-//    val hand1 = getHand("KK677 28")
-//    val hand2 = getHand("KTJJT 220")
-//    
-//    println(hand1 > hand2)
-//    println(hand2 > hand1)
     
     val input = readInput("Day07")
     part1(input).println()
