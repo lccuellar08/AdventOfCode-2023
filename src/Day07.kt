@@ -51,8 +51,8 @@ fun main() {
                 return when(this.hand_type) {
                     HandType.FIVE_OF_A_KIND -> HandType.FIVE_OF_A_KIND
                     HandType.FOUR_OF_A_KIND -> HandType.FIVE_OF_A_KIND // XJJJJ -> JJJJJ or JXXXX -> XXXXX
-                    HandType.FULL_HOUSE -> HandType.FIVE_OF_A_KIND // XXJJJ or JJXXX
-                    HandType.THREE_OF_A_KIND -> HandType.FOUR_OF_A_KIND//XXXJY or JJJXY -> XXXXY
+                    HandType.FULL_HOUSE -> HandType.FIVE_OF_A_KIND // XXJJJ or JJXXX -> XXXXX
+                    HandType.THREE_OF_A_KIND -> HandType.FOUR_OF_A_KIND // XXXJY or JJJXY -> XXXXY
                     HandType.TWO_PAIR -> { 
                         if(mapOfCards[jokerInstance] == 2) { // XXJJY -> XXXXY or XXYYY
                             HandType.FOUR_OF_A_KIND
@@ -61,7 +61,7 @@ fun main() {
                         }
                     }
                     HandType.ONE_PAIR -> HandType.THREE_OF_A_KIND // JJXYZ OR XXJYZ -> XXXYZ
-                    HandType.HIGH_CARD -> HandType.ONE_PAIR
+                    HandType.HIGH_CARD -> HandType.ONE_PAIR // XYZWJ -> XXYZW
                     else -> this.hand_type
                 }
             }
