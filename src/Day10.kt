@@ -340,6 +340,7 @@ fun main() {
         
         val starterNode = allPipes.find{it.row == 35 && it.col == 17}
 //        val starterNode = allPipes.find{it.row == 0 && it.col == 0}
+//        val starterNode = allPipes.find{it.row == 34 && it.col == 279}
         var maxSize = 0
         if(starterNode != null) {
             maxSize = calculateMaxLength(starterNode)
@@ -356,7 +357,8 @@ fun main() {
         //        allPipes.map{println("PipeNode(pipeType=${it.pipeType.char}, row=${it.row}, col=${it.col}, left=${it.left?.pipeType?.char}, right=${it.right?.pipeType?.char})")}
 
         val starterNode = allPipes.find{it.row == 35 && it.col == 17}
-//        val starterNode = allPipes.find{it.row == 0 && it.col == 4}
+//        val starterNode = allPipes.find{it.row == 34 && it.col == 279}
+        println(starterNode?.pipeType)
         var enclosedTiles = 0
         if(starterNode != null) {
             val listOfNodes = getNodesInLoop(starterNode)
